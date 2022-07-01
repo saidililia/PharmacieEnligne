@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Forum</title>
+    <link th:href="@{/css/styleAttempt2.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="log-form">
+    <h2>Login to your account</h2>
+    <form th:action="@{/Login/check}" th:object="${request}" method="post">
+        <input type="text" title="email" placeholder="email" th:field="*{email}"/>
+        <input type="password" title="password" placeholder="password" th:field="*{password}"/>
+        <button type="submit" class="btn">Login</button>
+        <a class="forgot" href="#">Forgot Username?</a>
+    </form>
+</div>
+</body>
+</html>

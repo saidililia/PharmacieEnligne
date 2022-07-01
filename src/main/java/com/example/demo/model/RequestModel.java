@@ -35,4 +35,5 @@ public class RequestModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

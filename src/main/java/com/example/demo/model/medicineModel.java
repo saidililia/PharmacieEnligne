@@ -12,9 +12,21 @@ public class medicineModel {
     @NotNull
     private String name;
     @NotNull
-    private Date expDate;
+    private String expDate;
+    @NotNull
+    private double prix;
+    @NotNull
+    private int stock;
 
     public medicineModel() {
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getName() {
@@ -25,16 +37,26 @@ public class medicineModel {
         this.name = name;
     }
 
-    public Date getExpDate() {
+    public String getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(Date expDate) {
+    public void setExpDate(String expDate) {
         this.expDate = expDate;
     }
 
-    public medicineModel(String name, Date expDate) {
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    public medicineModel(String name, String expDate, double prix, int stock) {
         this.name = name;
         this.expDate = expDate;
+        this.prix = prix;
+        this.stock = stock;
     }
 }

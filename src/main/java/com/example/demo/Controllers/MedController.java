@@ -2,36 +2,64 @@ package com.example.demo.Controllers;
 
 
 import com.example.demo.model.medicineModel;
+import com.example.demo.repository.medRepo;
 import com.example.demo.service.medicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import java.util.List;
+
+
 @RestController
-@RequestMapping(value = "/admin")
+@Controller
 public class MedController {
     // only the admin is allowed to manage medecines
 
 @Autowired
 private medicineService medSer;
+@Autowired
+private medRepo medRepo;
 
 
-    @PostMapping("/medicaments/add")
-    public medicine add(@RequestBody medicineModel med){
-        medSer.add(med);
-        return null;
+    @GetMapping("/medicaments")
+    public ModelAndView showStock(){
+        ModelAndView view =new ModelAndView("medicines");
+        List<medicine> list =medRepo.findAll();
+        view.addObject("medicines", list);
+        return view;
     }
-    @GetMapping(value="medicaments/{id}")
-    public void delete(){
 
+    @GetMapping("/medicaments/addMedicine")
+    public ModelAndView add(){
+        ModelAndView view = new ModelAndView("addMedicine");
+        medicine newMed = new medicine();
+        view.addObject("medicine", newMed);
+        return view;
     }
 
-    @GetMapping(value="medicaments/{id}")
-    public medicine display(){
 
-        return null;
+
+    @PostMapping("/medicaments/addMedicine/saveMedicine")
+    public String saveMedicine(@ModelAttribute medicine medicine){
+        medRepo.save(medicine);
+        return "redirect:/medicaments";
+    }
+
+    @GetMapping("/showUpdateFormMedicine")
+    public ModelAndView showUpdateForm(@RequestParam int medID){
+        ModelAndView view =new ModelAndView("addMedicine");
+        medicine med = medRepo.findById(medID);
+        view.addObject("medicine", med);
+        return view;
+    }
+
+    @GetMapping("/deleteMedicine")
+    public String DeleteItem(@RequestParam int medID){
+        medRepo.deleteById(medID);
+        return "redirect:/List/addOrder";
     }
 
 }

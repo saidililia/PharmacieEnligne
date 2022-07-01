@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des medicaments</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<br>
+   <div class="container">
+       <h2>List des medicaments</h2>
+       <hr/>
+       <a th:href="@{/medicaments/addMedicine}" class="btn btn-primary mb-2">Ajouter medicaments</a>
+       <br>
+       <table class="table table-borded table-striped">
+           <thead>
+           <tr>
+               <th> ID medicaments </th>
+               <th> Nom </th>
+               <th> Date Expiration </th>
+               <th> Stock </th>
+               <th> Prix </th>
+               <th> Action </th>
+           </tr>
+           </thead>
+           <tbody>
+             <tr th:each="med: ${medicines}">
+                 <td th:text="${med.ID}"></td>
+                 <td th:text="${med.name}"></td>
+                 <td th:text="${med.expDate}"></td>
+                 <td th:text="${med.Stock}"></td>
+                 <td th:text="${med.prix}"></td>
+                 <td>
+                     <a th:href="@{/showUpdateFormMedicine(medID=${med.ID})}" class="btn btn-info"> Update </a>
+                     <a th:href="@{/deleteMedicine(medID=${med.ID})}" class="btn btn-danger ml-2"> Delete </a>
+                 </td>
+             </tr>
+           </tbody>
+       </table>
+   </div>
+</body>
+</html>

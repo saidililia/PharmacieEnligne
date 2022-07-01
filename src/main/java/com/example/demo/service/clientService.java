@@ -7,7 +7,9 @@ import com.example.demo.model.clientRegistration;
 import com.example.demo.repository.clientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.repository.*;
+
+import java.util.Optional;
+
 @Service
 public class clientService {
 	
@@ -18,16 +20,12 @@ public class clientService {
         client c= new client(user.getFirstName(),
                              user.getLastName(),
                              user.getBirthDate(),
-                             user.getGender(),
                              user.getEmail(),
                              user.getPassword());
         clientRepo.save(c);
     }
 
 
-    public void verify(RequestModel auth) {
-      //  Optional<client> c = clientR.findByEmail(auth.getEmail());
 
 
-    }
 }

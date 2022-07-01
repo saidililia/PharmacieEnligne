@@ -11,36 +11,26 @@ import java.util.Date;
 @Data
 public class OrderModel {
     @NotNull
-    private Date dateC;
-    @NotNull
-    private int IDm;
+    private String dateC;
     @NotNull
     private int IDc;
 
-    public OrderModel(Date dateC, int IDm, int IDc) {
+    public OrderModel(String dateC, int IDc) {
         this.dateC = dateC;
-        this.IDm = IDm;
         this.IDc = IDc;
     }
 
     public OrderModel() {
     }
 
-    public Date getDateC() {
+    public String getDateC() {
         return dateC;
     }
 
-    public void setDateC(Date dateC) {
+    public void setDateC(String dateC) {
         this.dateC = dateC;
     }
 
-    public int getIDm() {
-        return IDm;
-    }
-
-    public void setIDm(int IDm) {
-        this.IDm = IDm;
-    }
 
     public int getIDc() {
         return IDc;

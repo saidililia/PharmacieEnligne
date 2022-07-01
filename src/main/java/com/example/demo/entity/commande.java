@@ -3,60 +3,64 @@ package com.example.demo.entity;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Component
+@Data
 @Entity
+@Table(name = "commande")
 public class commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
-    private Date dateC;
-    private int IDm;
-    private int IDc;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "clientId")
+    private client client;
 
-    public commande(int ID, Date dateC, int IDm, int IDc) {
-        this.ID = ID;
-        this.dateC = dateC;
-        this.IDm = IDm;
-        this.IDc = IDc;
+    @OneToMany(mappedBy = "commande")
+    private Set<item> items = new HashSet<>();
+
+    private String dateC;
+    @Transient
+    private int itemNum;
+    @Transient
+    private Double totalPrice;
+
+
+
+    public Double getTotalPrice() {
+        double sum= 0.0;
+        for(item itm: this.items){
+            sum= sum + itm.getQuantity()*itm.getMedicine().getPrix();
+        }
+
+        return sum;
+    }
+
+    public Set<item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<item> items) {
+        this.items = items;
     }
 
     public commande() {
     }
 
-    public Date getDateC() {
-        return dateC;
+
+
+    public int getItemNum(){
+        int sum=0;
+        for(item itm: this.items){
+            sum= sum + itm.getQuantity();
+        }
+        return sum;
     }
 
-    public void setDateC(Date dateC) {
-        this.dateC = dateC;
-    }
 
-    public int getIDm() {
-        return IDm;
-    }
 
-    public void setIDm(int IDm) {
-        this.IDm = IDm;
-    }
-
-    public int getIDc() {
-        return IDc;
-    }
-
-    public void setIDc(int IDc) {
-        this.IDc = IDc;
-    }
-
-    public commande(Date dateC, int IDm, int IDc) {
-        this.dateC = dateC;
-        this.IDm = IDm;
-        this.IDc = IDc;
-    }
 }
